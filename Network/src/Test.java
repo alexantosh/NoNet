@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 
 public class Test
 {
-
 	public static void main(String[] args)
 	{
 		DrawNetwork netPanel = new DrawNetwork( 10, 65  );
@@ -17,5 +16,4 @@ public class Test
 		frame.setVisible( true );
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 	}
-
 }
