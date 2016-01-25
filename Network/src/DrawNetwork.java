@@ -30,7 +30,6 @@ public class DrawNetwork extends JPanel
 {
 	String feedback="";
 	int met = 0;
-	int selected; 
 	public static final Color		WHITE				= Color.WHITE;
 	BufferedImage offscreenImage,  onscreenImage;
 	Graphics2D offscreen, onscreen;
@@ -140,13 +139,13 @@ public class DrawNetwork extends JPanel
 			{
 				if( e.getStateChange() == ItemEvent.SELECTED )
 				{
-					selected = algos.getSelectedIndex(); 
+					int selected = algos.getSelectedIndex(); 
 					if( selected == 0 )
 					{
 						setMet( selected );
 						feedback += "\nGo Random. Selected: Random==" + algorithms[selected];
 						progressInfoTextField.setText( feedback );
-//						repaint();
+						repaint();
 					}
 					// Set to Voronoi
 					else if( selected == 1 )
@@ -155,21 +154,21 @@ public class DrawNetwork extends JPanel
 						feedback += "\nGo Voronoi. Selected: Voronoi==" + algorithms[selected];
 						progressInfoTextField.setText( feedback );
 						//drawVoronoi( g );
-//						repaint();
+						repaint();
 					}
 					else if( selected == 2 )
 					{
 						setMet( selected );
 						feedback += "\nGo LEACH. Selected: LEACH==" + algorithms[selected];
 						progressInfoTextField.setText( feedback );
-//						repaint();
+						repaint();
 					}
 					else 
 					{
 						setMet( selected );
 						feedback += "\nGo Us. Selected: Ours==" + algorithms[selected];
 						progressInfoTextField.setText( feedback );
-//						repaint();
+						repaint();
 					}
 				}
 			}
@@ -342,27 +341,26 @@ public class DrawNetwork extends JPanel
 	public void paintComponent( Graphics g)
 	{
 		super.paintComponent( g );
-		drawRandom( g );
-		//int todo = getMet();
-//		switch( todo )
-//		{
-//			case 0:
-//				System.out.println("Deployed Randomly");
-//				drawRandom( g );				
-//				break;
-//			case 1:
-//				System.out.println("Voronoi working now...");
-//				drawVoronoi( g );
-//				break;
-//			case 2:
-//				System.out.println("Leach");
-//				break;
-//			case 3:
-//				System.out.println("Ours");
-//				break;
-//				default:
-//					drawRandom( g );
-//		}
+		int todo = getMet();
+		switch( todo )
+		{
+			case 0:
+				drawRandom( g );
+				System.out.println("Deployed Randomly");
+				break;
+			case 1:
+				drawVoronoi( g );
+				System.out.println("Voronoi working now...");
+				break;
+			case 2:
+				System.out.println("Leach");
+				break;
+			case 3:
+				System.out.println("Ours");
+				break;
+				default:
+					drawRandom( g );
+		}
 		
 	}
 	
@@ -582,16 +580,6 @@ public class DrawNetwork extends JPanel
 	private void pixel(double x, double y)
 	{
 		offscreen.fillRect((int) Math.round(scaleX(x)), (int) Math.round(scaleY(y)), 1, 1);
-	}
-	
-	public int getSelected()
-	{
-		return selected;
-	}
-
-	public void setSelected(int selected)
-	{
-		this.selected = selected;
 	}
 	
 	public void square(double x, double y, double r)
